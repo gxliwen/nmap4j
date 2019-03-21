@@ -1,5 +1,6 @@
 package org.nmap4j;
 
+import org.apache.log4j.Logger;
 import org.nmap4j.core.flags.ArgumentProperties;
 import org.nmap4j.core.nmap.ExecutionResults;
 import org.nmap4j.core.nmap.NMapExecutionException;
@@ -10,6 +11,7 @@ import org.nmap4j.data.NMapRun;
 import org.nmap4j.parser.OnePassParser;
 import org.nmap4j.valid.HostsInputValidator;
 
+ 
 
 /**
  * This is the simplified way to execute and parse Nmap output.  This is the
@@ -36,7 +38,8 @@ import org.nmap4j.valid.HostsInputValidator;
  * @author jsvede
  */
 public class Nmap4j implements INmap4j {
-
+	private Logger logger = Logger.getLogger(Nmap4j.class);
+	 
     private NMapProperties nmapProperties;
     private ArgumentProperties flags;
     private NMapExecutor nmapExecutor;
@@ -52,6 +55,7 @@ public class Nmap4j implements INmap4j {
      * @param path
      */
     public Nmap4j(String path) {
+    	logger.debug("Nmap4j 构造方法执行，path:"+path);
         nmapProperties = new NMapProperties(path);
         flags = new ArgumentProperties();
         validator = new HostsInputValidator();
@@ -94,6 +98,8 @@ public class Nmap4j implements INmap4j {
      * @param hosts
      */
     public void includeHosts(String hosts) {
+    	logger.debug(" includeHosts hosts is :"+hosts);
+    	System.out.println(" includeHosts hosts is :"+hosts);
         if (!validator.valid(hosts)) {
             throw new RuntimeException("Non legal hosts parameter");
         }
@@ -108,6 +114,7 @@ public class Nmap4j implements INmap4j {
      * @param hosts
      */
     public void excludeHosts(String hosts) {
+    	logger.debug(" excludeHosts hosts is :"+hosts);
         flags.addExcludedHost(hosts);
     }
 
@@ -127,6 +134,7 @@ public class Nmap4j implements INmap4j {
      */
     public NMapRun getResult() {
         OnePassParser parser = new OnePassParser();
+        logger.debug(results.getOutput());
         NMapRun nmapRun = parser.parse(results.getOutput(), OnePassParser.STRING_INPUT);
         return nmapRun;
     }
