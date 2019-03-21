@@ -17,7 +17,7 @@ public class Nmap4jUtil {
 	
 	public static boolean isPortOpen( int port, String address ) throws Exception {
 		
-		BaseScan baseScan = new BaseScan( "/usr/local") ;
+		BaseScan baseScan = new BaseScan( "D:\\ProgramFiles\\nmap-7.70") ;
 		
 		baseScan.includeHost( address ) ;
 		baseScan.addPorts(new int[]{ port } ) ;

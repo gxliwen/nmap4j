@@ -139,7 +139,7 @@ public class OnePassParserTest implements IConstants {
 	
 	@Test
 	public void testLocalHostScan() {
-		BaseScan baseScan = new BaseScan( "/usr/local") ;
+		BaseScan baseScan = new BaseScan( "D:\\ProgramFiles\\nmap-7.70") ;
 		
 		baseScan.includeHost( "localhost" ) ;
 		baseScan.addPorts(new int[]{ 3306} ) ;
